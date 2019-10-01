@@ -3,6 +3,7 @@ import './App.css';
 import axios from 'axios'
 import GithubInfo from './GithubInfo'
 import FollowersList from './FollowersList'
+import { Route, Link } from 'react-router-dom';
 
 const githubApi = 'https://api.github.com/users/durotolu'
 const followersApi ='https://api.github.com/users/durotolu/followers'
@@ -49,8 +50,10 @@ class App extends React.Component {
     return (
     <div className="App">
       Github User Card
-      <GithubInfo apiState={apiState} />
-      <FollowersList followersState={followersState} />
+      <Link to='/'>Home</Link>
+      <Link to='/followers'>Followers</Link>
+      <Route exact path='/' render={props => <GithubInfo {...props} apiState={apiState} />} />
+      <Route exact path='/followers' render={props => <FollowersList {...props} followersState={followersState} />} />
     </div>
   );
   }
