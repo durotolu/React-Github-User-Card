@@ -4,17 +4,25 @@ import axios from 'axios'
 import GithubInfo from './GithubInfo'
 import FollowersList from './FollowersList'
 import { Route, Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const githubApi = 'https://api.github.com/users/durotolu'
 const followersApi ='https://api.github.com/users/durotolu/followers'
+
+const AppStyle = styled.div`
+  margin: 0 auto;
+
+  .nav {
+    display: flex;
+    justify-content: space-around;
+  }
+`
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      apiState: {
-        name: '',
-      },
+      apiState: '',
       followersState: {
         followers: []
       }
@@ -30,9 +38,7 @@ class App extends React.Component {
     .then((apiRes) => {
       debugger
       this.setState({
-        apiState: {
-          name: apiRes[0].data.name, 
-        },
+        apiState: apiRes[0].data,
         followersState: {
           followers: apiRes[1].data
         }
@@ -48,13 +54,15 @@ class App extends React.Component {
   render () {
     const { apiState, followersState } = this.state;
     return (
-    <div className="App">
-      Github User Card
-      <Link to='/'>Home</Link>
-      <Link to='/followers'>Followers</Link>
+    <AppStyle className="App">
+      <div class='nav'>
+        <strong>Github User Card</strong>
+        <Link to='/'>Home</Link>
+        <Link to='/followers'>Followers</Link>
+      </div>
       <Route exact path='/' render={props => <GithubInfo {...props} apiState={apiState} />} />
       <Route exact path='/followers' render={props => <FollowersList {...props} followersState={followersState} />} />
-    </div>
+    </AppStyle>
   );
   }
   
