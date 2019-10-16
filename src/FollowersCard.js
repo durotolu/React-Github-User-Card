@@ -20,7 +20,7 @@ const FollowersCardStyle = styled.div`
 
 export default function FollowersCard (props) {
     const { follower } = props;
-    debugger
+    
     return (
         <FollowersCardStyle>
             <div>
